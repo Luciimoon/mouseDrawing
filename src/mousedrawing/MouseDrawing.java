@@ -15,13 +15,13 @@ public class MouseDrawing extends JFrame {
 
     /**
      *
-     * Adds left color and right color colorlabel adds 8 colors in an array
+     * Adds left color and right color color label adds 8 colors in an array
      *
-     * @var xPrevious keeps track of mouse x corrordinate
+     * @var xPrevious keeps track of mouse x coordinate
      */
     JMenuBar mainMenuBar = new JMenuBar();
     JMenu fileMenu = new JMenu("file");
-    JMenuItem newMenuItem = new JMenuItem("new");
+    JMenuItem newMenuItem = new JMenuItem("Clear");
     JMenuItem exitMenuItem = new JMenuItem("exit");
     JPanel drawPanel = new JPanel();
     JLabel leftColorLabel = new JLabel();
@@ -73,6 +73,13 @@ public class MouseDrawing extends JFrame {
             }
         });
 
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                exitMenuItemActionPerformed(e);
+            }
+        });
+
         drawPanel.setPreferredSize(new Dimension(500, 400));
         drawPanel.setBackground(Color.BLACK);
         GridBagConstraints gridConstraints = new GridBagConstraints();
@@ -81,6 +88,25 @@ public class MouseDrawing extends JFrame {
         gridConstraints.gridheight = 2;
         gridConstraints.insets = new Insets(10, 10, 10, 10);
         getContentPane().add(drawPanel, gridConstraints);
+       
+        drawPanel.addMouseListener(new MouseAdapter() {
+            public void mousePressed(MouseEvent e) {
+                drawPanelMousePressed(e);
+            }
+
+           
+        });
+        drawPanel.addMouseMotionListener(new MouseAdapter() {
+            public void mouseDragged(MouseEvent e) {
+                drawPanelmouseDragged(e);
+            }
+        });
+        drawPanel.addMouseMotionListener(new MouseAdapter() {
+            public void mouseReleased(MouseEvent e) {
+               drawPanelmouseReleased(e);
+            }
+        });
+               
 
         leftColorLabel.setPreferredSize(new Dimension(40, 40));
         leftColorLabel.setOpaque(true);
@@ -100,7 +126,7 @@ public class MouseDrawing extends JFrame {
         gridConstraints.insets = new Insets(5, 2, 5, 5);
         getContentPane().add(rightColorLabel, gridConstraints);
 
-        colorPanel.setPreferredSize(new Dimension(80, 160+70));
+        colorPanel.setPreferredSize(new Dimension(80, 160 + 70));
         colorPanel.setBorder(BorderFactory.createTitledBorder("colors"));
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
@@ -130,7 +156,8 @@ public class MouseDrawing extends JFrame {
                 }
             });
 
-        }
+        } // end of for loop
+
         //set color labels
         colorLabel[0].setBackground(Color.GRAY);
         colorLabel[1].setBackground(Color.BLUE);
@@ -142,8 +169,8 @@ public class MouseDrawing extends JFrame {
         colorLabel[7].setBackground(Color.WHITE);
         colorLabel[8].setBackground(Color.ORANGE);
         colorLabel[9].setBackground(Color.PINK);
-        colorLabel[10].setBackground(Color.getHSBColor(0.1F,  0.2F,  0.3F));
-        colorLabel[11].setBackground(Color.getHSBColor(0.5F,  0.6F,  0.7F));
+        colorLabel[10].setBackground(Color.getHSBColor(0.1F, 0.2F, 0.3F));
+        colorLabel[11].setBackground(Color.getHSBColor(0.5F, 0.6F, 0.7F));
         leftColor = colorLabel[1].getBackground();
         leftColorLabel.setBackground(leftColor);
         rightColor = colorLabel[4].getBackground();
@@ -175,5 +202,29 @@ public class MouseDrawing extends JFrame {
         }
 
     }
+
+    private void exitMenuItemActionPerformed(ActionEvent e) {
+
+        int response;
+        response = JOptionPane.showConfirmDialog(null, "Are you sure you want to exit?", "Exit Program",
+                JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+        if (response == JOptionPane.NO_OPTION) {
+            return;
+        } else {
+            exitForm(null);
+        }
+    }
+    
+     private void drawPanelMousePressed(MouseEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+     
+      private void drawPanelmouseDragged(MouseEvent e) {
+                throw new UnsupportedOperationException("Not supported yet.");
+            }
+      
+       private void drawPanelmouseReleased(MouseEvent e) {
+                throw new UnsupportedOperationException("Not supported yet."); 
+            }
 
 }
