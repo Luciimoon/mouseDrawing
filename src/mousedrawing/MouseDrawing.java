@@ -5,6 +5,9 @@ import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.*;
 
 import javax.swing.*;
@@ -33,6 +36,7 @@ public class MouseDrawing extends JFrame {
     JMenuItem redMenuItem = new JMenuItem("Red");
     JMenuItem magentaMenuItem = new JMenuItem("Magenta");
     JMenuItem greenMenuItem = new JMenuItem("Green");
+    JMenuItem pinkMenuItem = new JMenuItem("Pink");
 
     JMenuItem smallMenuItem = new JMenuItem("Small");
     JMenuItem mediumMenuItem = new JMenuItem("Medium");
@@ -42,16 +46,27 @@ public class MouseDrawing extends JFrame {
     JLabel leftColorLabel = new JLabel();
     JLabel rightColorLabel = new JLabel();
     JPanel colorPanel = new JPanel();
-    JLabel[] colorLabel = new JLabel[12]; //num of colors
+    JLabel[] colorLabel = new JLabel[20]; //num of colors
     Graphics2D g2D;
     double xPrevious, yPrevious;
     Color drawColor, leftColor, rightColor;
     int Panelx = 500;
     int Panely = 400;
     int penSize = 1;
-
+    public final static Color lightRed  = new Color(234, 86, 60);
+    public final static Color darkRed  = new Color(135, 238, 242);
+    public final static Color paleRed  = new Color(255, 124, 124);
+    public final static Color darkBlue  = new Color(229, 229, 229);
+    public final static Color lightBlue  = new Color(77, 157, 188);
+    public final static Color teal  = new Color(0, 196, 160);
+    public final static Color darkGreen  = new Color(43, 107, 8);
+    public final static Color paleBlue  = new Color(130, 177, 255);
+    public final static Color darkPurple  = new Color(195, 0, 255);
+    public final static Color seaGreen  = new Color(15, 153, 93);
+    public final static Color goodRed  = new Color(158, 22, 0);
+    public final static Color deepseaGreen  = new Color(66, 137, 130);
     /**
-     *
+     *102, 12, 12
      * @param args main
      */
     public static void main(String[] args) {
@@ -84,6 +99,7 @@ public class MouseDrawing extends JFrame {
         mainMenuBar.add(penMenu);
         canvasMenu.add(blueMenuItem);
         canvasMenu.add(redMenuItem);
+        canvasMenu.add(pinkMenuItem);
         canvasMenu.add(magentaMenuItem);
         canvasMenu.add(greenMenuItem);
         penMenu.add(smallMenuItem);
@@ -112,6 +128,13 @@ public class MouseDrawing extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 blueMenuItemActionPerformed(e);
+            }
+        });
+        
+         pinkMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pinkMenuItemActionPerformed(e);
             }
         });
 
@@ -210,7 +233,7 @@ public class MouseDrawing extends JFrame {
         gridConstraints.insets = new Insets(5, 2, 5, 5);
         getContentPane().add(rightColorLabel, gridConstraints);
 
-        colorPanel.setPreferredSize(new Dimension(80, 160 + 70));
+        colorPanel.setPreferredSize(new Dimension(80, 160 + 170));
         colorPanel.setBorder(BorderFactory.createTitledBorder("colors"));
         gridConstraints = new GridBagConstraints();
         gridConstraints.gridx = 1;
@@ -222,16 +245,16 @@ public class MouseDrawing extends JFrame {
 
         colorPanel.setLayout(new GridBagLayout());
         int j = 0;
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 20; i++) {
 
             colorLabel[i] = new JLabel();
             colorLabel[i].setPreferredSize(new Dimension(30, 30));
             colorLabel[i].setOpaque(true);
             gridConstraints = new GridBagConstraints();
             gridConstraints.gridx = j;
-            gridConstraints.gridy = i - j * 6;
+            gridConstraints.gridy = i - j * 10;
             colorPanel.add(colorLabel[i], gridConstraints);
-            if (i == 5) {
+            if (i == 9) {
                 j++;
             }
             colorLabel[i].addMouseListener(new MouseAdapter() {
@@ -244,21 +267,39 @@ public class MouseDrawing extends JFrame {
 
         //set color labels
         colorLabel[0].setBackground(Color.GRAY);
-        colorLabel[1].setBackground(Color.BLUE);
-        colorLabel[2].setBackground(Color.GREEN);
-        colorLabel[3].setBackground(Color.CYAN);
-        colorLabel[4].setBackground(Color.RED);
-        colorLabel[5].setBackground(Color.MAGENTA);
-        colorLabel[6].setBackground(Color.YELLOW);
-        colorLabel[7].setBackground(Color.WHITE);
+        colorLabel[1].setBackground(deepseaGreen);
+        colorLabel[2].setBackground(Color.BLUE);
+        colorLabel[3].setBackground(lightBlue);
+        colorLabel[4].setBackground(lightRed);
+        colorLabel[5].setBackground(Color.RED);
+        colorLabel[6].setBackground(Color.MAGENTA);
+        colorLabel[7].setBackground(darkGreen);
         colorLabel[8].setBackground(Color.ORANGE);
-        colorLabel[9].setBackground(Color.PINK);
+        colorLabel[9].setBackground(darkBlue);
         colorLabel[10].setBackground(Color.getHSBColor(0.1F, 0.2F, 0.3F));
-        colorLabel[11].setBackground(Color.getHSBColor(0.5F, 0.6F, 0.7F));
+        colorLabel[11].setBackground(teal);
+        colorLabel[12].setBackground(paleBlue);
+        colorLabel[13].setBackground(darkRed);
+        colorLabel[14].setBackground(paleRed);
+        colorLabel[15].setBackground(goodRed);
+        colorLabel[16].setBackground(darkPurple);
+        colorLabel[17].setBackground(Color.GREEN);
+        colorLabel[18].setBackground(Color.YELLOW);
+        colorLabel[19].setBackground(Color.WHITE);
         leftColor = colorLabel[1].getBackground();
         leftColorLabel.setBackground(leftColor);
         rightColor = colorLabel[4].getBackground();
         rightColorLabel.setBackground(rightColor);
+        
+        /*
+        public final static Color lightRed  = new Color(242, 79, 79);
+    public final static Color darkRed  = new Color(102, 12, 12);
+    public final static Color paleRed  = new Color(255, 124, 124);
+    public final static Color darkBlue  = new Color(25, 98, 140);
+    public final static Color lightBlue  = new Color(50, 146, 201);
+    public final static Color teal  = new Color(0, 196, 160);
+        */
+        
 
         pack();
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
@@ -322,101 +363,7 @@ public class MouseDrawing extends JFrame {
             g2D.draw(myLine);
             xPrevious = e.getX();
             yPrevious = e.getY();
-        } else if (penSize == 2) {
 
-            Line2D.Double myLine0 = new Line2D.Double(xPrevious, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine1 = new Line2D.Double(xPrevious - 1, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine2 = new Line2D.Double(xPrevious + 1, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine3 = new Line2D.Double(xPrevious, yPrevious + 1, e.getX(), e.getY());
-            Line2D.Double myLine4 = new Line2D.Double(xPrevious, yPrevious - 1, e.getX(), e.getY());
-            Line2D.Double myLine5 = new Line2D.Double(xPrevious + 1, yPrevious + 1, e.getX(), e.getY());
-            Line2D.Double myLine6 = new Line2D.Double(xPrevious - 1, yPrevious - 1, e.getX(), e.getY());
-            Line2D.Double myLine7 = new Line2D.Double(xPrevious + 1, yPrevious - 1 , e.getX(), e.getY());
-            Line2D.Double myLine8 = new Line2D.Double(xPrevious - 1, yPrevious + 1, e.getX(), e.getY());
-            Line2D.Double myLine9 = new Line2D.Double(xPrevious - 1, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine10 = new Line2D.Double(xPrevious - 2, yPrevious, e.getX(), e.getY());
-
-            g2D.setPaint(drawColor);
-            g2D.draw(myLine0);
-            g2D.draw(myLine1);
-            g2D.draw(myLine2);
-            g2D.draw(myLine3);
-            g2D.draw(myLine4);
-            g2D.draw(myLine5);
-            g2D.draw(myLine6);
-            g2D.draw(myLine7);
-            g2D.draw(myLine8);
-            g2D.draw(myLine9);
-            g2D.draw(myLine10);
-            xPrevious = e.getX();
-            yPrevious = e.getY();
-        } else if (penSize == 3) {
-            
-            Line2D.Double myLine0 = new Line2D.Double(xPrevious, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine1 = new Line2D.Double(xPrevious - 1, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine2 = new Line2D.Double(xPrevious + 1, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine3 = new Line2D.Double(xPrevious, yPrevious + 1, e.getX(), e.getY());
-            Line2D.Double myLine4 = new Line2D.Double(xPrevious, yPrevious - 1, e.getX(), e.getY());
-            Line2D.Double myLine5 = new Line2D.Double(xPrevious + 1, yPrevious + 1, e.getX(), e.getY());
-            Line2D.Double myLine6 = new Line2D.Double(xPrevious - 1, yPrevious - 1, e.getX(), e.getY());
-            Line2D.Double myLine7 = new Line2D.Double(xPrevious + 1, yPrevious - 1 , e.getX(), e.getY());
-            Line2D.Double myLine8 = new Line2D.Double(xPrevious - 1, yPrevious + 1, e.getX(), e.getY());
-            Line2D.Double myLine9 = new Line2D.Double(xPrevious - 1, yPrevious, e.getX(), e.getY());
-
-            Line2D.Double myLine11 = new Line2D.Double(xPrevious - 2, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine12 = new Line2D.Double(xPrevious + 2, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine13 = new Line2D.Double(xPrevious, yPrevious + 2, e.getX(), e.getY());
-            Line2D.Double myLine14 = new Line2D.Double(xPrevious, yPrevious - 2, e.getX(), e.getY());
-            Line2D.Double myLine15 = new Line2D.Double(xPrevious + 2, yPrevious + 2, e.getX(), e.getY());
-            Line2D.Double myLine16 = new Line2D.Double(xPrevious - 2, yPrevious - 2, e.getX(), e.getY());
-            Line2D.Double myLine17 = new Line2D.Double(xPrevious + 2, yPrevious - 2 , e.getX(), e.getY());
-            Line2D.Double myLine18 = new Line2D.Double(xPrevious - 2, yPrevious + 2, e.getX(), e.getY());
-            Line2D.Double myLine19 = new Line2D.Double(xPrevious - 2, yPrevious, e.getX(), e.getY());
-            
-            Line2D.Double myLine20 = new Line2D.Double(xPrevious - 3, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine21 = new Line2D.Double(xPrevious + 3, yPrevious, e.getX(), e.getY());
-            Line2D.Double myLine22 = new Line2D.Double(xPrevious, yPrevious + 3, e.getX(), e.getY());
-            Line2D.Double myLine23 = new Line2D.Double(xPrevious, yPrevious - 3, e.getX(), e.getY());
-            Line2D.Double myLine24 = new Line2D.Double(xPrevious + 3, yPrevious + 3, e.getX(), e.getY());
-            Line2D.Double myLine25 = new Line2D.Double(xPrevious - 3, yPrevious - 3, e.getX(), e.getY());
-            Line2D.Double myLine26 = new Line2D.Double(xPrevious + 3, yPrevious - 3 , e.getX(), e.getY());
-            Line2D.Double myLine27 = new Line2D.Double(xPrevious - 3, yPrevious + 3, e.getX(), e.getY());
-            Line2D.Double myLine28 = new Line2D.Double(xPrevious - 3, yPrevious, e.getX(), e.getY());
-
-            g2D.setPaint(drawColor);
-            g2D.draw(myLine0);
-            g2D.draw(myLine1);
-            g2D.draw(myLine2);
-            g2D.draw(myLine3);
-            g2D.draw(myLine4);
-            g2D.draw(myLine5);
-            g2D.draw(myLine6);
-            g2D.draw(myLine7);
-            g2D.draw(myLine8);
-            g2D.draw(myLine9);
-            g2D.draw(myLine11);
-
-            g2D.draw(myLine1);
-            g2D.draw(myLine12);
-            g2D.draw(myLine13);
-            g2D.draw(myLine14);
-            g2D.draw(myLine15);
-            g2D.draw(myLine16);
-            g2D.draw(myLine17);
-            g2D.draw(myLine18);
-            g2D.draw(myLine19);
-            
-            g2D.draw(myLine20);
-            g2D.draw(myLine21);
-            g2D.draw(myLine22);
-            g2D.draw(myLine23);
-            g2D.draw(myLine24);
-            g2D.draw(myLine25);
-            g2D.draw(myLine26);
-            g2D.draw(myLine27);
-            g2D.draw(myLine28);
-            xPrevious = e.getX();
-            yPrevious = e.getY();
             
             
         }
@@ -458,6 +405,11 @@ public class MouseDrawing extends JFrame {
     private void blueMenuItemActionPerformed(ActionEvent e) {
 
         g2D.setPaint(Color.BLUE);
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MouseDrawing.class.getName()).log(Level.SEVERE, null, ex);
+        }
         g2D.fill(new Rectangle2D.Double(0, 0, drawPanel.getWidth(), drawPanel.getHeight()));
 
     }
@@ -465,6 +417,23 @@ public class MouseDrawing extends JFrame {
     private void redMenuItemActionPerformed(ActionEvent e) {
 
         g2D.setPaint(Color.RED);
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MouseDrawing.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        g2D.fill(new Rectangle2D.Double(0, 0, drawPanel.getWidth(), drawPanel.getHeight()));
+
+    }
+    
+    private void pinkMenuItemActionPerformed(ActionEvent e) {
+
+        g2D.setPaint(Color.PINK);
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MouseDrawing.class.getName()).log(Level.SEVERE, null, ex);
+        }
         g2D.fill(new Rectangle2D.Double(0, 0, drawPanel.getWidth(), drawPanel.getHeight()));
 
     }
@@ -472,6 +441,11 @@ public class MouseDrawing extends JFrame {
     private void magentaMenuItemActionPerformed(ActionEvent e) {
 
         g2D.setPaint(Color.MAGENTA);
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MouseDrawing.class.getName()).log(Level.SEVERE, null, ex);
+        }
         g2D.fill(new Rectangle2D.Double(0, 0, drawPanel.getWidth(), drawPanel.getHeight()));
 
     }
@@ -479,21 +453,28 @@ public class MouseDrawing extends JFrame {
     private void greenMenuItemActionPerformed(ActionEvent e) {
 
         g2D.setPaint(Color.GREEN);
-
+        try {
+            TimeUnit.MILLISECONDS.sleep(100);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(MouseDrawing.class.getName()).log(Level.SEVERE, null, ex);
+        }
         g2D.fill(new Rectangle2D.Double(0, 0, drawPanel.getWidth(), drawPanel.getHeight()));
 
     }
 
     // pen size
     private void smallMenuItemActionPerformed(ActionEvent e) {
-        penSize = 1;
+        //penSize = 1;
+        g2D.setStroke(new BasicStroke(1));
     }
 
     private void mediumMenuItemActionPerformed(ActionEvent e) {
-        penSize = 2;
+        //penSize = 2;
+        g2D.setStroke(new BasicStroke(10));
     }
 
     private void largeMenuItemActionPerformed(ActionEvent e) {
-        penSize = 3;
+        //penSize = 3;
+        g2D.setStroke(new BasicStroke(100));
     }
 }
