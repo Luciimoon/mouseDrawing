@@ -22,7 +22,7 @@ public class MouseDrawing extends JFrame {
      *
      * Adds left color and right color color label adds 8 colors in an array
      *
-     * @var xPrevious keeps track of mouse x coordinate
+     *  xPrevious keeps track of mouse x coordinate
      */
     JMenuBar mainMenuBar = new JMenuBar();
     JMenu fileMenu = new JMenu("file");
@@ -53,20 +53,57 @@ public class MouseDrawing extends JFrame {
     int Panelx = 500;
     int Panely = 400;
     int penSize = 1;
+    
+    /**
+     *  rgb values are 234, 86, 60
+     */
     public final static Color lightRed  = new Color(234, 86, 60);
+    /**
+     * rgb values are 135, 238, 242
+     */
     public final static Color darkRed  = new Color(135, 238, 242);
+    /**
+     * rgb values are 255, 124, 124
+     */
     public final static Color paleRed  = new Color(255, 124, 124);
+    /**
+     * rgb values are 229, 229, 229
+     */
     public final static Color darkBlue  = new Color(229, 229, 229);
+    /**
+     * rgb values are 77, 157, 188
+     */
     public final static Color lightBlue  = new Color(77, 157, 188);
+    /**
+     * rgb values are 0, 196, 160
+     */
     public final static Color teal  = new Color(0, 196, 160);
+    /**
+     * rgb values are 43, 107, 8
+     */
     public final static Color darkGreen  = new Color(43, 107, 8);
+    /**
+     * rgb values are 130, 177, 255
+     */
     public final static Color paleBlue  = new Color(130, 177, 255);
+    /**
+     * rgb values are 195, 0, 255
+     */
     public final static Color darkPurple  = new Color(195, 0, 255);
+    /**
+     * rgb values are 15, 153, 93
+     */
     public final static Color seaGreen  = new Color(15, 153, 93);
+    /**
+     * rgb values are 158, 22, 0
+     */
     public final static Color goodRed  = new Color(158, 22, 0);
+    /**
+     * rgb values are 66, 137, 130
+     */
     public final static Color deepseaGreen  = new Color(66, 137, 130);
     /**
-     *102, 12, 12
+     *
      * @param args main
      */
     public static void main(String[] args) {
@@ -76,7 +113,7 @@ public class MouseDrawing extends JFrame {
     }
 
     /**
-     *
+     * Creates a drawing program
      */
     public MouseDrawing() {
 
@@ -182,12 +219,12 @@ public class MouseDrawing extends JFrame {
             }
         });
 
-        /*  resizeMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                resizeMenuItemMenuItemActionPerformed(e);
-            }
-
+        /*resizeMenuItem.addActionListener(new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+        resizeMenuItemMenuItemActionPerformed(e);
+        }
+        
         }); */
         drawPanel.setPreferredSize(new Dimension(Panelx * 2, Panely * 2));
         drawPanel.setBackground(Color.BLACK);
@@ -392,16 +429,24 @@ public class MouseDrawing extends JFrame {
         }
     }
 
-    /*
-    private void resizeMenuItemMenuItemActionPerformed(ActionEvent e) {
-        String responseX;
-        responseX = JOptionPane.showInputDialog(null, "What is your X dimension?");
-        Panelx = responseX;
-        String responseY;
-        responseY = JOptionPane.showConfirmDialog(null, "What is your Y dimension?");
-        Panely = responseY;
-    }
-     */
+    
+    /*private void resizeMenuItemMenuItemActionPerformed(ActionEvent e) {
+    
+    
+    String responseX;
+    responseX = JOptionPane.showInputDialog(null, "What is your X dimension?");
+    Panelx = Integer.parseInt(responseX);
+    String responseY;
+    responseY = JOptionPane.showInputDialog(null, "What is your Y dimension?");
+    Panely = Integer.parseInt(responseY);
+    
+    pack();
+    Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    setBounds((int) (.5 * (screenSize.width - getWidth())), (int) (.5 * (screenSize.height - getHeight())), getWidth(), getHeight());
+    // create graphics object
+    g2D = (Graphics2D) drawPanel.getGraphics();
+    }*/
+     
     private void blueMenuItemActionPerformed(ActionEvent e) {
 
         g2D.setPaint(Color.BLUE);
